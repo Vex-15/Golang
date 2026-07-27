@@ -1,4 +1,4 @@
-# Golang Masterclass :
+# Golang Masterclass 
 
 This is where I actually learn Go — not by taking notes I'll never open again, but by building things, breaking them, and fixing them until they make sense.
 
