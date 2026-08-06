@@ -15,7 +15,7 @@ var htmlContent = `
 	</html>
 `
 
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 	homeContent := fmt.Sprintf(htmlContent, "Home", "<h1>Hello! welcome!</h1>")
 	_, _ = w.Write([]byte(homeContent))
 }
