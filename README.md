@@ -14,7 +14,7 @@ If you're learning Go too, I hope something in here saves you an hour of confusi
 Each top-level folder is a concept area. Inside, you'll usually find a small standalone Go program exploring one idea, and sometimes a full project where a few ideas come together.
 
 ```text
-Golang-Masterclass
+Golang
 │
 ├── goroutines/                     # Concurrency: the core of this repo so far
 │   ├── main.go                     # Ping-pong with context cancellation
