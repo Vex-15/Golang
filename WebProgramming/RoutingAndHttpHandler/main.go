@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"log"
-	"net/http"
 	"os"
 
 	_ "github.com/lib/pq"
@@ -14,7 +13,6 @@ type Application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
 	userRepo UserRepository
-	mux      *http.ServeMux
 }
 
 func connectToDatabase(name string) (*sql.DB, error) {
@@ -33,11 +31,11 @@ func connectToDatabase(name string) (*sql.DB, error) {
 
 func main() {
 
-	mux := http.NewServeMux()
+	// mux := http.NewServeMux()
 	// mux.HandleFunc("/", home)
 	// mux.HandleFunc("/about", about)
 	// mux.HandleFunc("/contact", contact)
-	// commented because we
+	// commented because we are using the Application struct to handle requests now
 
 	db, err := connectToDatabase("postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable")
 	if err != nil {
@@ -49,11 +47,10 @@ func main() {
 		errorLog: log.New(os.Stderr, "Error\t", log.Ltime|log.LstdFlags|log.Lmicroseconds|log.Lshortfile),
 		infoLog:  log.New(os.Stderr, "Error\t", log.Ltime|log.LstdFlags),
 		userRepo: NewSQLUserRepository(db),
-		mux:      mux,
 	}
 
 	log.Println("Listening on localhost:8080")
-	if err := app.Serve(); err != nil {
+	if err := app.serve(); err != nil {
 		log.Print(err)
 	}
 

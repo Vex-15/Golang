@@ -20,12 +20,12 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(homeContent))
 }
 
-func about(w http.ResponseWriter, r *http.Request) {
+func (app *Application) about(w http.ResponseWriter, r *http.Request) {
 	aboutContent := fmt.Sprintf(htmlContent, "About", "<h1>Just a software developer</h1>")
 	_, _ = w.Write([]byte(aboutContent))
 }
 
-func contact(w http.ResponseWriter, r *http.Request) {
+func (app *Application) contact(w http.ResponseWriter, r *http.Request) {
 	contactContent := fmt.Sprintf(htmlContent, "Contact", "<h1>Contact me at @x : vexstack</h1>")
 	_, _ = w.Write([]byte(contactContent))
 }
