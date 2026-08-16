@@ -14,6 +14,7 @@ type Application struct {
 	infoLog     *log.Logger
 	userRepo    UserRepository
 	templateDir string
+	tp          *TemplateRenderer
 }
 
 func connectToDatabase(name string) (*sql.DB, error) {
@@ -50,7 +51,7 @@ func main() {
 		userRepo:    NewSQLUserRepository(db),
 		templateDir: "./templates",
 	}
-
+	app.tp = newTemplateRenderer(app.templateDir, true)
 	log.Println("Listening on localhost:8080")
 	if err := app.serve(); err != nil {
 		log.Print(err)
