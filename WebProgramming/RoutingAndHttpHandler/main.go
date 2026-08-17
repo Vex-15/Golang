@@ -14,6 +14,7 @@ type Application struct {
 	infoLog     *log.Logger
 	userRepo    UserRepository
 	templateDir string
+	publicPath  string
 	tp          *TemplateRenderer
 }
 
@@ -50,6 +51,7 @@ func main() {
 		infoLog:     log.New(os.Stderr, "Error\t", log.Ltime|log.LstdFlags),
 		userRepo:    NewSQLUserRepository(db),
 		templateDir: "./templates",
+		publicPath:  "./public",
 	}
 	app.tp = newTemplateRenderer(app.templateDir, true)
 	log.Println("Listening on localhost:8080")

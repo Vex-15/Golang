@@ -16,8 +16,14 @@ var htmlContent = `
 `
 
 func (app *Application) home(w http.ResponseWriter, r *http.Request) {
-	homeContent := fmt.Sprintf(htmlContent, "Home", "<h1>Hello! welcome!</h1>")
-	_, _ = w.Write([]byte(homeContent))
+	// homeContent := fmt.Sprintf(htmlContent, "Home", "<h1>Hello! welcome!</h1>")
+	// _, _ = w.Write([]byte(homeContent))
+	//above is the old method
+
+	//we gonna use render function now
+
+	app.render(w, "index.html", nil)
+
 }
 
 func (app *Application) about(w http.ResponseWriter, r *http.Request) {
