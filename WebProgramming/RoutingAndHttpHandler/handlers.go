@@ -21,6 +21,7 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 
 	//we gonna use render function now
 
+	app.infoLog.Printf("Session data : %s", app.session.GetString(r, "userID"))
 	app.render(w, "index.html", nil)
 
 }
@@ -38,6 +39,7 @@ func (app *Application) contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) login(w http.ResponseWriter, r *http.Request) {
+	app.session.Put(r, "userID", "123456")
 	app.render(w, "login.html", nil)
 }
 

@@ -2,10 +2,12 @@ package main
 
 import (
 	"database/sql"
+	"time"
 
 	"log"
 	"os"
 
+	"github.com/golangcollege/sessions"
 	_ "github.com/lib/pq"
 )
 
@@ -16,6 +18,7 @@ type Application struct {
 	templateDir string
 	publicPath  string
 	tp          *TemplateRenderer
+	session     *sessions.Session
 }
 
 func connectToDatabase(name string) (*sql.DB, error) {
@@ -46,14 +49,20 @@ func main() {
 	}
 	defer db.Close()
 
+	session := sessions.New([]byte("u46IpCV9y5Vlur8YvODJEhgOY8m9JVE4"))
+	session.Lifetime = 24 * time.Hour
+
 	app := &Application{
 		errorLog:    log.New(os.Stderr, "Error\t", log.Ltime|log.LstdFlags|log.Lmicroseconds|log.Lshortfile),
 		infoLog:     log.New(os.Stderr, "Error\t", log.Ltime|log.LstdFlags),
 		userRepo:    NewSQLUserRepository(db),
 		templateDir: "./templates",
 		publicPath:  "./public",
+		session:     session,
 	}
+
 	app.tp = newTemplateRenderer(app.templateDir, true)
+
 	log.Println("Listening on localhost:8080")
 	if err := app.serve(); err != nil {
 		log.Print(err)
