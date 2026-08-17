@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 )
 
@@ -27,11 +26,21 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) about(w http.ResponseWriter, r *http.Request) {
-	aboutContent := fmt.Sprintf(htmlContent, "About", "<h1>Just a software developer</h1>")
-	_, _ = w.Write([]byte(aboutContent))
+	// aboutContent := fmt.Sprintf(htmlContent, "About", "<h1>Just a software developer</h1>")
+	// _, _ = w.Write([]byte(aboutContent))
+	app.render(w, "about.html", nil)
 }
 
 func (app *Application) contact(w http.ResponseWriter, r *http.Request) {
-	contactContent := fmt.Sprintf(htmlContent, "Contact", "<h1>Contact me at @x : vexstack</h1>")
-	_, _ = w.Write([]byte(contactContent))
+	// contactContent := fmt.Sprintf(htmlContent, "Contact", "<h1>Contact me at @x : vexstack</h1>")
+	// _, _ = w.Write([]byte(contactContent))
+	app.render(w, "contact.html", nil)
+}
+
+func (app *Application) login(w http.ResponseWriter, r *http.Request) {
+	app.render(w, "login.html", nil)
+}
+
+func (app *Application) register(w http.ResponseWriter, r *http.Request) {
+	app.render(w, "register.html", nil)
 }
