@@ -4,15 +4,15 @@ import (
 	"net/http"
 )
 
-var htmlContent = `
-<!DOCTYPE html>
-<html>
-<head><title>%s</title></head>
-<body>
-	%s
-	</body>
-	</html>
-`
+// var htmlContent = `
+// <!DOCTYPE html>
+// <html>
+// <head><title>%s</title></head>
+// <body>
+// 	%s
+// 	</body>
+// 	</html>
+// `
 
 func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 	// homeContent := fmt.Sprintf(htmlContent, "Home", "<h1>Hello! welcome!</h1>")
