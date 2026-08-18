@@ -5,6 +5,12 @@ import (
 	"net/http"
 )
 
+type contextKey string
+
+const (
+	contextAuthKey contextKey = contextKey("isAuthKey")
+)
+
 func (app *Application) logger(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		app.infoLog.Printf("%s - %s %s %s", r.RemoteAddr, r.Proto, r.Method, r.URL.RequestURI())
@@ -22,4 +28,24 @@ func (app *Application) recover(next http.Handler) http.Handler {
 		}()
 		next.ServeHTTP(w, r)
 	})
+}
+
+func (app *Application) requireAuth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !app.isAuthenticated(r) {
+			http.Redirect(w, r, "/login?redirectTo=%s", http.StatusSeeOther)
+			return
+		}
+
+		w.Header().Set("Cache-Control", "no-cache")
+		next.ServeHTTP(w, r)
+	})
+}
+
+func (app *Application) isAuthenticated(r *http.Request) bool {
+	isAuth, ok := r.Context().Value(contextAuthKey).(bool)
+	if !ok {
+		return false
+	}
+	return isAuth
 }

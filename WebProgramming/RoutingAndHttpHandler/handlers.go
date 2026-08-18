@@ -46,3 +46,7 @@ func (app *Application) login(w http.ResponseWriter, r *http.Request) {
 func (app *Application) register(w http.ResponseWriter, r *http.Request) {
 	app.render(w, "register.html", nil)
 }
+
+func (app *Application) submit(w http.ResponseWriter, r *http.Request) {
+	app.render(w, "submit.html", nil)
+}

@@ -165,8 +165,8 @@ func main() {
 	// Above one is input for a single file download
 
 	urls := []string{
-		"https://tse3.mm.bing.net/th/id/OIP.I76wCCHMWyK9EqVb-5GP_QHaHP?rs=1&pid=ImgDetMain&o=7&rm=3",
-		"https://content.imageresizer.com/images/memes/Cool-cat-meme-2.jpg",
+		"https://cdn.pixabay.com/photo/2017/07/24/19/57/tiger-2535888_640.jpg",
+		"https://thumbs.dreamstime.com/b/tiger-wild-winter-nature-amur-tiger-running-snow-action-wildlife-scene-danger-animal-cold-winter-tajga-russ-84783074.jpg",
 	}
 
 	err := concurrentDownloader(urls, "./", 3)
