@@ -47,6 +47,15 @@ func (app *Application) login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		form := newForm(r.PostForm)
+		form.Required("email", "password").MaxLength("email", 255).MinLength("email", 9).MaxLength("password", 255).MinLength("password", 9).Matches("email", EmailRX)
+
+		if !form.Valid() {
+			app.errorLog.Printf("Invalid form : %+v", form.Errors)
+			app.render(w, "login.html", nil)
+			return
+		}
+
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 		app.infoLog.Printf("Logged in with email %s,%s\n", email, password)
