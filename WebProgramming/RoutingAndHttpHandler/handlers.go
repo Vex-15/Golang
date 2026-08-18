@@ -39,7 +39,19 @@ func (app *Application) contact(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) login(w http.ResponseWriter, r *http.Request) {
-	app.session.Put(r, "userID", "123456")
+	// app.session.Put(r, "userID", "123456")
+
+	if r.Method == http.MethodPost {
+		if err := r.ParseForm(); err != nil {
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
+		}
+
+		email := r.FormValue("email")
+		password := r.FormValue("password")
+		app.infoLog.Printf("Logged in with email %s,%s\n", email, password)
+	}
+
 	app.render(w, "login.html", nil)
 }
 
