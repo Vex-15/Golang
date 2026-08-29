@@ -1,6 +1,6 @@
-# Golang :
+# Golang 
 
-This is where I actually learn Go — not by taking notes I'll never open again, but by building things, breaking them, and fixing them until they make sense.
+This is where I actually learn Go, not by taking notes I'll never open again, but by building things, breaking them, and fixing them until they make sense.
 
 I build projects as I learn, extending many of them beyond the original idea to explore how Go works in practice. Whenever a concept clicks, I try to push it a little further, turn it into something practical, and write about the projects that teach me the most.
 This repository is the running record of that—a public learning journal and practical reference for anyone learning Go alongside me.
