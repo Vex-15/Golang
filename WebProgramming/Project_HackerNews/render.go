@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func (app *Application) render(w http.ResponseWriter, filname string, data interface{}) {
+func (app *Application) render(w http.ResponseWriter, r *http.Request, filname string, data *templateData) {
 
 	// fullPath := path.Join(app.templateDir, filname)
 	// tmpl, err := template.ParseFiles(fullPath)
@@ -24,5 +24,16 @@ func (app *Application) render(w http.ResponseWriter, filname string, data inter
 		http.Error(w, "template rendering not set", http.StatusInternalServerError)
 		return
 	}
-	app.tp.Render(w, filname, data)
+
+	mergedData := app.defaultTemplateData(data, r)
+	app.tp.Render(w, filname, mergedData)
+
+}
+
+func (app *Application) defaultTemplateData(data *templateData, r *http.Request) *templateData {
+	if data == nil {
+		data = &templateData{}
+	}
+	data.flash = app.session.PopString(r, "flash")
+	return data
 }

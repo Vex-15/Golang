@@ -22,27 +22,31 @@ func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 	//we gonna use render function now
 
 	app.infoLog.Printf("Session data : %s", app.session.GetString(r, "userID"))
-	app.render(w, "index.html", nil)
+	app.render(w, r, "index.html", nil)
 
 }
 
 func (app *Application) about(w http.ResponseWriter, r *http.Request) {
-	// aboutContent := fmt.Sprintf(htmlContent, "About", "<h1>Just a software developer</h1>")
-	// _, _ = w.Write([]byte(aboutContent))
-	app.render(w, "about.html", nil)
+	app.render(w, r, "about.html", nil)
 }
 
 func (app *Application) contact(w http.ResponseWriter, r *http.Request) {
-	// contactContent := fmt.Sprintf(htmlContent, "Contact", "<h1>Contact me at @x : vexstack</h1>")
-	// _, _ = w.Write([]byte(contactContent))
-	app.render(w, "contact.html", nil)
+
+	app.render(w, r, "contact.html", nil)
 }
 
 func (app *Application) login(w http.ResponseWriter, r *http.Request) {
 	app.session.Put(r, "userID", "123456")
-	app.render(w, "login.html", nil)
+
+	if r.Method == http.MethodPost{
+		
+	}
+
+	app.render(w, r, "login.html", &templateData{
+		Form: NewForm(r.PostForm)
+	})
 }
 
 func (app *Application) register(w http.ResponseWriter, r *http.Request) {
-	app.render(w, "register.html", nil)
+	app.render(w, r, "register.html", nil)
 }
